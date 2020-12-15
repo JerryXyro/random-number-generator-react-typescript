@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+export const App: React.FC = () => {
+  const [minVal, setMin] = React.useState(0);
+  const [maxVal, setMax] = React.useState(0);
+  const [randomVal, setRandomVal] = React.useState(0);
+
+  function handleRandomNumber(e: React.FormEvent<HTMLFormElement>) {
+    if (minVal < maxVal && minVal != maxVal) {
+      e.preventDefault();
+      setRandomVal(
+        Math.floor(minVal - 0.5 + Math.random() * (maxVal - minVal + 1))
+      );
+    } else {
+      alert("Input Rejected. Enter the Correct Input");
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1 id="title">Random Number Generator</h1>
+      <div className="Container">
+        <form onSubmit={handleRandomNumber}>
+          <label htmlFor="output-stuff">NUMBER :</label>
+          <input disabled id="output" type="text" value={randomVal} />
+
+          <div className="min-area inline">
+            <label htmlFor="min-input-box">MIN :</label>
+            <input
+              className="min-input validate"
+              type="number"
+              value={minVal}
+              onChange={(e) => setMin(parseInt(e.currentTarget.value))}
+            />
+          </div>
+
+          <div className="max-area">
+            <label htmlFor="max-input-box">MAX:</label>
+            <input
+              className="max-input"
+              type="number"
+              value={maxVal}
+              onChange={(e) => setMax(parseInt(e.currentTarget.value))}
+            />
+          </div>
+
+          <button className="waves-effect waves-light btn-large" type="submit">
+            Generate
+          </button>
+        </form>
+      </div>
     </div>
   );
-}
-
-export default App;
+};
