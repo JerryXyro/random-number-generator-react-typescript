@@ -6,7 +6,7 @@ export const App: React.FC = () => {
   const [randomVal, setRandomVal] = React.useState(0);
 
   function handleRandomNumber(e: React.FormEvent<HTMLFormElement>) {
-    if (minVal < maxVal && minVal != maxVal) {
+    if (minVal < maxVal && minVal !== maxVal) {
       e.preventDefault();
       setRandomVal(
         Math.floor(minVal - 0.5 + Math.random() * (maxVal - minVal + 1))
